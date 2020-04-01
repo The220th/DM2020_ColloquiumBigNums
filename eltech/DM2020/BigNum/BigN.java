@@ -180,23 +180,26 @@ public class BigN
     * @return int - 0 если равны, -1 если меньше other, 1 если больше other
     *
     * @version 1
-    * @author Яловега Никита
+    * @author Семенов Алексей
     */
     public int compareTo(BigN other)
     {
-        int i;
-        if (this.value.size() > other.value.size())
-            return 1;
-        else if (this.value.size() < other.value.size())
-            return -1;
-
-        for(i = 0; i < this.value.size(); ++i)
-            if (this.value.get(i) > other.value.get(i))
-                return 1;
-            else if (this.value.get(i) < other.value.get(i))
-                return -1;
-
-        return 0;
+        int i,f;
+		String src,compared;
+		src = this.toString();
+		compared = other.toString();
+		f = 0; i = 0;
+		if(src.length() > compared.length())
+			return 1;
+		else if(src.length() < compared.length())
+			return -1;
+		while(f == 0 && i < src.length())
+		{
+			if(src.charAt(i) > compared.charAt(i)) f++;
+			else if(src.charAt(i) < compared.charAt(i)) f--;
+			i++;
+		}
+        return f;
     }
 
 
