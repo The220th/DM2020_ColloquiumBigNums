@@ -184,22 +184,7 @@ public class BigN
     */
     public int compareTo(BigN other)
     {
-        int i,f;
-		String src,compared;
-		src = this.toString();
-		compared = other.toString();
-		f = 0; i = 0;
-		if(src.length() > compared.length())
-			return 1;
-		else if(src.length() < compared.length())
-			return -1;
-		while(f == 0 && i < src.length())
-		{
-			if(src.charAt(i) > compared.charAt(i)) f++;
-			else if(src.charAt(i) < compared.charAt(i)) f--;
-			i++;
-		}
-        return f;
+		return this.toString().compareTo(other.toString());
     }
 
 
@@ -210,7 +195,7 @@ public class BigN
     * @version 1
     * @author Яловега Никита
     */
-    private boolean isMoreThan(BigN other) {
+    public boolean isMoreThan(BigN other) {
         return this.compareTo(other) > 0;
     }
 
@@ -221,7 +206,7 @@ public class BigN
     * @version 1
     * @author Яловега Никита
     */
-    private boolean isLessThan(BigN other) {
+    public boolean isLessThan(BigN other) {
         return this.compareTo(other) < 0;
     }
 
@@ -232,7 +217,7 @@ public class BigN
     * @version 1
     * @author Яловега Никита
     */
-    private boolean isMoreOrEquals(BigN other) {
+    public boolean isMoreOrEquals(BigN other) {
         return this.compareTo(other) >= 0;
     }
 
@@ -243,7 +228,7 @@ public class BigN
     * @version 1
     * @author Яловега Никита
     */
-    private boolean isLessOrEquals(BigN other) {
+    public boolean isLessOrEquals(BigN other) {
         return this.compareTo(other) <= 0;
     }
 
@@ -254,7 +239,7 @@ public class BigN
     * @version 1
     * @author Яловега Никита
     */
-    private boolean isEquals(BigN other) {
+    public boolean isEquals(BigN other) {
         return this.compareTo(other) == 0;
     }
 

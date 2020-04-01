@@ -7,9 +7,19 @@ public class Colloquium
 {
 	public static void start()
 	{
-		//Тестируте!)
-		BigN a = new BigN("6194856");
-		System.out.println( a.multiply( new BigN("561392463") ).add( new BigN("5051") ) ); // 3477745467775379
+		Scanner in = new Scanner(System.in);
+		String buffS;
+		buffS = in.nextLine();
+		BigN a = new BigN(buffS);
+		buffS = in.nextLine();
+		BigN b = new BigN(buffS);
+		System.out.println("\n" + a.compareTo(b) + "\n");
+		System.out.println("a>b: " + a.isMoreThan(b));
+		System.out.println("a<b: " + a.isLessThan(b));
+		System.out.println("a>=b: " + a.isMoreOrEquals(b));
+		System.out.println("a<=b: " + a.isLessOrEquals(b));
+		System.out.println("a==b: " + a.isEquals(b));
+		System.out.println("a-Ноль: " + a.isZero());
 	}
 }
 
