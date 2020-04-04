@@ -7,9 +7,19 @@ public class Colloquium
 {
 	public static void start()
 	{
-		BigN a = new BigN("153387");
-        BigN b = new BigN("780273");
-        System.out.println(a.gcd(b));
+		Scanner in = new Scanner(System.in);
+		String buffS;
+		/*buffS = in.nextLine();
+		BigN a = new BigN(buffS);*/
+		buffS = in.nextLine();
+		BigZ b = new BigZ(buffS);
+		System.out.println(b + "\n");
+		System.out.println(b.isPositive());
+		System.out.println(b.multiplyByMinusOne().abs());
+		System.out.println(b.multiplyByMinusOne());
+		System.out.println("\n" + b.toBigN().divide(new BigN("4705")));
+		System.out.println(b.toBigN().mod(new BigN("4705")));
+		System.out.println(b.toBigN().gcd(new BigN("4705")));
 	}
 }
 

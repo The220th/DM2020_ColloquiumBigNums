@@ -444,4 +444,17 @@ public class BigN
 		return buffThis.add(buffOther);
     }
     
+	/**
+	* Конвертация из BigN в BigZ
+	*
+    * @return BigZ result - целое число
+	*
+	* @version 1
+	* @author Семенов Алексей
+	*/
+	public BigZ toBigZ()
+	{
+		BigZ result = new BigZ(this.toString());
+		return result;
+	}
  }

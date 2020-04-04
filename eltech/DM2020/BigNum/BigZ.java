@@ -37,7 +37,7 @@ public class BigZ
 	
 	private BigZ(){}
 	
-		/**
+	/**
 	* Вывод большого целого числа в виде строки
 	*
     * @return Представление числа в виде строки
@@ -54,5 +54,69 @@ public class BigZ
 			S += "-";
 		S += Number.toString();
 		return S;
+	}
+	
+	/**
+	* Проверка, является ли число положительным
+	*
+    * @return 1 - если положительное, 0 - если нет
+	*
+	* @version 1
+	* @author Семенов Алексей
+	*/
+	public boolean isPositive()
+	{
+		return isPositive;
+	}
+	
+	/**
+	* Модуль числа
+	*
+    * @return BigZ result - модуль исходного числа
+	*
+	* @version 1
+	* @author Семенов Алексей
+	*/
+	public BigZ abs()
+	{
+		if(this.isPositive()) 
+			return this;
+		String buff = this.toString();
+		buff = buff.substring(1,buff.length());
+		BigZ result = new BigZ(buff);
+		return result;
+	}
+	
+	/**
+	* Умножение на -1
+	*
+    * @return BigZ result - число, умноженное на -1
+	*
+	* @version 1
+	* @author Семенов Алексей
+	*/
+	public BigZ multiplyByMinusOne()
+	{
+		if(!this.isPositive()) return this.abs();
+		String buff = "-";
+		buff += this.toString();
+		BigZ result = new BigZ(buff);
+		return result;
+	}
+	
+	/**
+	* Конвертация из BigZ в BigN, если первое положительное
+	*
+    * @return BigN result - натуральное число
+	*
+	* @version 1
+	* @author Семенов Алексей
+	*/
+	public BigN toBigN() throws ArithmeticException
+	{
+		if(!this.isPositive()) 
+			throw new ArithmeticException("Натуральное число не может быть отрицательным!");
+		BigN result = new BigN(this.toString());
+		return result;
 	}
 }
