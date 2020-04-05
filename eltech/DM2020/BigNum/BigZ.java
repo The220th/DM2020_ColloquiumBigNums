@@ -55,4 +55,16 @@ public class BigZ
 		S += Number.toString();
 		return S;
 	}
+	/**
+	* Проверка на знак.
+	*
+    * @return boolean - если положительное - вернёт true, иначе - false.
+	*
+	* @version 1
+	* @author Буторина Полина
+	*/
+	public boolean checkPositive()
+	{
+		return isPositive;
+	}
 }

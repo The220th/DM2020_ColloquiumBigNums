@@ -4,8 +4,8 @@ import java.util.*;
 
 	/**
 	* Класс, который позволяет манипулировать с большими натуральными числами + {0}
-	* @version 0.05
-	* @author Сычев Александр, Яловега Никита, Семенов Алексей, Деменьтев Дмитрий, Кашапова Ольга, Цветков Nван, Хайруллов Айрат, Муродов Ахмад
+	* @version 0.04
+	* @author Сычев Александр, Яловега Никита, Семенов Алексей
 	*/
 public class BigN
 {
@@ -157,20 +157,20 @@ public class BigN
      */
      public BigN multiply(BigN other)
      {
-        int base = 1000;
-        BigN result = new BigN();
-        int i, j, carry, cur;
+         int base = 1000;
+         BigN result = new BigN();
+         int i, j, carry, cur;
 
-        for (i = 0; i < this.value.size() + other.value.size(); ++i)
-            result.value.add(0);
+         for (i = 0; i < this.value.size() + other.value.size(); ++i)
+             result.value.add(0);
 
         for (i = 0; i < this.value.size(); ++i)
-            for (j = 0, carry = 0; j < other.value.size() || carry != 0; ++j)
-            {
-                cur = result.value.get(i+j) + this.value.get(i) * (j < other.value.size() ? other.value.get(j) : 0) + carry;
-                result.value.set(i+j, cur % base);
-                carry = cur / base;
-            }
+             for (j = 0, carry = 0; j < other.value.size() || carry != 0; ++j)
+             {
+                 cur = result.value.get(i+j) + this.value.get(i) * (j < other.value.size() ? other.value.get(j) : 0) + carry;
+                 result.value.set(i+j, cur % base);
+                 carry = cur / base;
+             }
 			 
         for (i = result.value.size()-1; result.value.get(i) == 0 && i > 0; --i)
      	    result.value.remove(i);
@@ -327,7 +327,7 @@ public class BigN
 	*/
 	public BigN subtructByK(BigN other, BigN k) throws ArithmeticException
 	{
-		if(this.compareTo(other.multiply(k)) >= 0 ){
+		if(this.compareTo(other.multiply(k)) == 1 ){
 			BigN result = new BigN(this.subtract(other.multiply(k)).toString());
             return result;
 		}
@@ -464,36 +464,36 @@ public class BigN
     * @return исходное BigN, уменьшенное на 1
     *
     * @version 1
-	* @author Цветков Nван, Хайруллов Айрат, Муродов Ахмад
-	*
+    * @author Цветков Ваня, Хайруллов Айрат, Муродов Ахмад
     */
 	
 	 public BigN decrement()
+{
+	/*
+	 * Предполагается, что число "правильное"
+	 * Т.е. не может быть 0 0 0 или 0 9 и т.д.
+	 */
+
+	boolean f;
+	int n = this.value.size(), i;
+
+	if (n == 1 && this.value.get(0) == 0) return this;
+
+	for (i = 0, f = true; i < n && f ; i++)
 	{
-		/*
-		 * Предполагается, что число "правильное"
-		 * Т.е. не может быть 0 0 0 или 0 9 и т.д.
-		 */
-
-		boolean f;
-		int n = this.value.size(), i;
-
-		if (n == 1 && this.value.get(0) == 0) return this;
-
-		for (i = 0, f = true; i < n && f ; i++)
-		{
-			if(this.value.get(i) - 1 >= 0) {
-				this.value.set(i, value.get(i) - 1);
-				f = false;
-			}
-			else
-			{
-				this.value.set(i, 999);
-			}
+		if(this.value.get(i) - 1 >= 0) {
+			this.value.set(i, value.get(i) - 1);
+			f = false;
 		}
-
-		return this;
+		else
+		{
+			this.value.set(i, 999);
+		}
 	}
+
+	return this;
 }
+    
+ }
  
  
