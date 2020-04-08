@@ -112,4 +112,88 @@ public class BigZ
 		}
 		return result;
 	}
+	
+	/**
+	* Умножение на -1
+	*
+    * @return BigZ result - исходное число, умноженное на -1
+	*
+	* @version 1
+	* @author Семенов Алексей
+	*/
+	public BigZ multiplyByMinusOne()
+	{
+		BigZ result;
+		if(!this.checkPositive())
+		{
+			result = new BigZ(this.Number.toString());
+		}
+		else
+		{
+			String buff = "-" + this.Number.toString();
+			result = new BigZ(buff);
+		}
+		return result;
+	}
+	
+	/**
+	* Деление нацело целых чисел
+	*
+	* Данное деление основано на том, что остаток от деления должен быть положительным, на примерах:
+	* 121 = 7*17 + 2
+	* 121 = -7*(-17) + 2
+	* -121 = 7*(-18) + 5
+	* -121 = -7*18 + 5
+	*
+    * @param BigZ other - число, на которое делится исходное
+    * @return BigZ result - результат деления
+	*
+	* @version 1
+	* @author Семенов Алексей
+	*/
+
+	public BigZ divide(BigZ other)
+	{
+		BigZ result;
+		if(this.checkPositive())
+		{
+			result = new BigZ(this.Number.divide(other.Number).toString());
+			if(!other.checkPositive())
+				result = result.multiplyByMinusOne();
+		}
+		else
+		{
+			result = new BigZ(this.Number.divide(other.Number).increment().toString());
+			if(other.checkPositive())
+				result = result.multiplyByMinusOne();
+		}
+		return result;
+	}
+	
+	/**
+	* Остаток от деления целых чисел
+	*
+	* Данное вычисление остатка от деления основано на том, 
+	* что остаток от деления должен быть положительным, на примерах:
+	* 121 = 7*17 + 2
+	* 121 = -7*(-17) + 2
+	* -121 = 7*(-18) + 5
+	* -121 = -7*18 + 5
+	*
+    * @param BigZ other - число, на которое делится исходное
+    * @return BigZ result - остаток от деления
+	*
+	* @version 1
+	* @author Семенов Алексей, Дементьев Дмитрий
+	*/
+
+	public BigZ mod(BigZ other)
+	{
+		BigZ result;
+		if(this.checkPositive())
+			result = new BigZ(this.Number.mod(other.Number).toString());
+		else
+			result = new BigZ(other.Number.subtract(this.Number.mod(other.Number)).toString());
+		return result;
+	}
 }
