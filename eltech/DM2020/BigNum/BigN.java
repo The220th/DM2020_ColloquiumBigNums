@@ -5,7 +5,7 @@ import java.util.*;
 	/**
 	* Класс, который позволяет манипулировать с большими натуральными числами + {0}
 	* @version 0.05
-	* @author Сычев Александр, Яловега Никита, Семенов Алексей, Деменьтев Дмитрий, Кашапова Ольга, Цветков Nван, Хайруллов Айрат, Муродов Ахмад
+	* @author Сычев Александр, Яловега Никита, Семенов Алексей, Деменьтев Дмитрий, Кашапова Ольга, Цветков Nван, Хайруллов Айрат, Муродов Ахмад, Ручкин Даниил
 	*/
 public class BigN
 {
@@ -496,22 +496,24 @@ public class BigN
 				this.value.set(i, 999);
 		}
 		return this;
-	}
+	} 
 	
 	/**
-    * Проверка на чётность
-	*
-    * @return boolean true в случае, если чётное, и false, если не чётное
-    *
+    * Чётное/нечётное число    
+    * @return true, если чётное. False, если нечетное
     * @version 1
     * @author Ручкин Даниил
     */
-	public boolean checkParity() 
+	
+	public boolean isEven()
 	{
-		if( this.value.get(0) % 2 == 0)
-			return true;
-		else
+		String str;
+		str = this.value.get(0).toString();
+		if (((int)str.charAt(str.length() - 1) % 2) == 1)
 			return false;
+		else
+			return true;
+			
 	}
 	
 	/**
@@ -587,5 +589,4 @@ public class BigN
         return result;
     }
 }
- 
  

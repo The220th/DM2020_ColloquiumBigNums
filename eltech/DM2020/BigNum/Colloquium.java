@@ -19,6 +19,12 @@ public class Colloquium
 	
 	public static void start()
 	{
+<<<<<<< HEAD
+		String str;
+		BigN a = new BigN("5");
+		System.out.println(a);
+		System.out.println(a.isEven());
+=======
 		InterFace();
 	}
 	
@@ -585,6 +591,7 @@ public class Colloquium
 			buffSClass = nums.get(kkey).getClass().toString();
 			System.out.println("Число " + kkey + " - это  " + buffSClass.substring(buffSClass.lastIndexOf(".")+1, buffSClass.length()) + ": " + (buffS.length() > 80 ? buffS.substring(0, 80) + "...": buffS) );
 		}
+>>>>>>> 7adcfb4a4a6543e566ba386b22806e5239cfc913
 	}
 }
 
