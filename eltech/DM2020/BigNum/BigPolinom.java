@@ -82,7 +82,7 @@ public class BigPolinom
 			if(thisPower > maxpower) maxpower = thisPower;
 		}
 		for(n = 0; n < maxpower+1; n++) factors.add(null);
-		
+
 		for(n = 0; n < arrStr.size(); n++)
 		{
 			thisPower = 0;
@@ -104,7 +104,7 @@ public class BigPolinom
 			else
 				factors.set(0, new BigQ(arrStr.get(n).trim()));
 		}
-		
+
 		for(n = 0; n < maxpower+1; n++)
 		{
 			if(factors.get(n) == null)
@@ -370,7 +370,7 @@ public class BigPolinom
             result.factors.set(i, temp1.add(temp2));
         }
 
-        for (i = result.factors.size()-1; result.factors.get(i).isZero() && i > 0; --i)
+        for (i = result.factors.size()-1; i >= 0 && result.factors.get(i).isZero(); i--)
             result.factors.remove(i);
 
         return result;
@@ -565,7 +565,7 @@ public class BigPolinom
 		resultString = temp.toString() + "(" + result.toString() + ")";
 		return resultString;
 	}
-	
+
 	/**
     * НОД многочленов
 	*
@@ -574,7 +574,7 @@ public class BigPolinom
 	* @return BigPolinom result - НОД многочленов
 	*
     * @version 1
-    * @author 
+    * @author
     */
 	public BigPolinom gcd(BigPolinom other)
 	{
@@ -582,7 +582,7 @@ public class BigPolinom
         BigPolinom buffOther = other.clone();
 		while (!buffThis.isZero() && !buffOther.isZero())
         {
-            if (buffThis.compareTo(buffOther) > 0) 
+            if (buffThis.compareTo(buffOther) > 0)
 			{
 				if(buffOther.factors.size() == 1)
 					return buffOther;
@@ -599,12 +599,12 @@ public class BigPolinom
         }
 		return buffThis.add(buffOther);
 	}
-	
+
 	/**
     * Метод перевода кратных корней в простые
 	*
     * @version 1
-    * @author 
+    * @author
     */
 	public BigPolinom rootsToSimple()
 	{
