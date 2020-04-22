@@ -99,7 +99,7 @@ public class BigN
     {
         int base = 1000;
         int i, j, carry, cur;
-        BigN result = this;
+        BigN result = this.clone();
 
         if (this.isMoreOrEquals(other))
         {
@@ -129,7 +129,7 @@ public class BigN
     * @return Представление числа в виде строки
 	*
 	* @version 1
-	* @author Сычев Александр
+	* @author 
 	*/
 	@Override
 	public String toString()
@@ -262,7 +262,7 @@ public class BigN
     * @return эквивалентность
 	*
 	* @version 1
-	* @author Сычев Александр
+	* @author 
 	*/
 	@Override
     public boolean equals(Object otherObj) 
@@ -296,11 +296,11 @@ public class BigN
     * @return BigN result - результат умножения
     *
     * @version 1.1
-    * @author Семенов Алексей, Сычев Александр, Деменьтев Дмитрий
+    * @author Семенов Алексей, Деменьтев Дмитрий
     */
     public BigN multiplyBy10x(int x)
     {
-		String buff = this.toString();;
+		String buff = this.toString();
 		if(x < 0) 
 		{
 			if(x*-1 >= buff.length())
@@ -318,9 +318,24 @@ public class BigN
     }
     
 	/**
+	 * умножение BigN на число k
+	 *
+	 * @param BigN k - множитель
+	 * @return BigN result - результат умножения BigN на k
+	 *
+	 * @version 1
+	 * @author Кашапова Ольга
+	*/
+	public BigN multiplyByK(BigN k)
+	{
+		BigN result = this.multiply(k);
+		return result;
+	}
+	
+	/**
 	 * вычитание из BigN другого BigN, умноженного на k(если получится положительный результат)
 	 *
-	 * @param BigN other - вычитаемое, BigN k - коофициент домножения other
+	 * @param BigN other - вычитаемое, BigN k - коэффициент домножения other
 	 * @return BigN result - результат вычитания из this other*k
 	 *
 	 * @version 1
@@ -328,8 +343,9 @@ public class BigN
 	*/
 	public BigN subtructByK(BigN other, BigN k) throws ArithmeticException
 	{
-		if(this.compareTo(other.multiply(k)) >= 0 ){
-			BigN result = this.subtract(other.multiply(k));
+		BigN buff = other.multiply(k);
+		if(this.compareTo( buff ) >= 0 ){
+			BigN result = this.subtract( buff );
             return result;
 		}
 		else
@@ -342,7 +358,7 @@ public class BigN
     * @return исходное BigN, увеличенное на 1
     *
     * @version 2
-    * @author Семенов Алексей, Сычев Александр
+    * @author Семенов Алексей
     */
     public BigN increment()
     {
@@ -414,7 +430,7 @@ public class BigN
     {
 		BigN result = new BigN("0");
 		if (this.isLessThan(other)) 
-			return this;
+			return this.clone();
         else 
 			if (this.equals(other)) 
 				return result;
@@ -505,7 +521,7 @@ public class BigN
     * @version 1
     * @author Ручкин Даниил
     */
-	public boolean checkParity() 
+	public boolean isEven() 
 	{
 		if( this.value.get(0) % 2 == 0)
 			return true;
@@ -519,7 +535,7 @@ public class BigN
     * @return копию BigN
     *
     * @version 1
-    * @author Сычев Александр
+    * @author
     */
 	@Override
 	public BigN clone() 
@@ -540,6 +556,50 @@ public class BigN
     public BigZ toBigZ()
     {
 		return new BigZ(this);
+    }
+
+	/**
+    * Конвертация в BigQ
+    *
+    * @return BigQ result - рациональное число
+    *
+    * @version 1
+    * @author
+    */
+    public BigQ toBigQ()
+    {
+		return new BigQ(this.toBigZ(), new BigZ("1"));
+    }
+
+	/**
+    * Конвертация в BigPolinom
+    *
+    * @return BigPolinom result - полином 0-ой степени
+    *
+    * @version 1
+    * @author
+    */
+    public BigPolinom toBigPolinom()
+    {
+		return new BigPolinom(this.toBigQ());
+    }
+
+    /**
+     * Вычисление первой цифры деления большего натурального на меньшее, домноженное на 10^k
+     *
+     * @param BigN other - делитель, домноженный на 10^k; int k - степень other
+     * @return BigN result - первая цифра результата деления числа на other, домноженного на 10^k
+     *
+     * @version 0.0003
+     * @author Соболев Матвей
+     */
+    public BigN divideByOtherTen(BigN other, int k)
+    {
+        BigN newOther = other.multiplyBy10x(k);
+        BigN result = this.divide(newOther);
+        String resultString = result.toString().substring(0, 1);
+        result = new BigN(resultString);
+        return result;
     }
 }
  
