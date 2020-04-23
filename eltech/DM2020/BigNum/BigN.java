@@ -310,7 +310,8 @@ public class BigN
 		else if(x == 0) return this;
 		else
 		{
-			String repeated = "0".repeat(x);
+			//String repeated = "0".repeat(x); Это для java 8 не подходит
+			String repeated = String.join("", Collections.nCopies(x, "0") ); // А это подходит
 			buff += repeated;
 		}
 		BigN result = new BigN(buff);
