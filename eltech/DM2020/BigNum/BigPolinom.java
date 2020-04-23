@@ -93,16 +93,25 @@ public class BigPolinom
 				{
 					thisPower = Integer.parseInt(powers[1].substring(1,powers[1].trim().length()));
 				}
-				factors.set(thisPower, new BigQ( powers[0].trim() ));
+				if(factors.get(thisPower) == null)
+					factors.set(thisPower, new BigQ( powers[0].trim() ));
+				else
+					factors.set(thisPower, factors.get(thisPower).add(new BigQ( powers[0].trim() )));
 			}
 			else if(arrStr.get(n).indexOf("x") != -1)
 			{
 				powers = arrStr.get(n).split("x");
 				thisPower = 1;
-				factors.set(thisPower, new BigQ(powers[0].trim()));
+				if(factors.get(thisPower) == null)
+					factors.set(thisPower, new BigQ( powers[0].trim() ));
+				else
+					factors.set(thisPower, factors.get(thisPower).add(new BigQ( powers[0].trim() )));
 			}
 			else
-				factors.set(0, new BigQ(arrStr.get(n).trim()));
+				if(factors.get(thisPower) == null)
+					factors.set(thisPower, new BigQ( arrStr.get(n).trim() ));
+				else
+					factors.set(thisPower, factors.get(thisPower).add(new BigQ( arrStr.get(n).trim() )));
 		}
 		
 		for(n = 0; n < maxpower+1; n++)
