@@ -223,6 +223,20 @@ public class Colloquium
 						rootsToSimple(cm);
 						break;
 					}
+					case "cls":{}
+					case "clear":
+					{
+						System.out.println( String.join( "", Collections.nCopies(160, "\n") ) );
+						break;
+					}
+					case "rm":{}
+					case "remove":{}
+					case "del":{}
+					case "delete":
+					{
+						nums.remove(cm[0]);
+						break;
+					}
 					default:
 					{
 						System.out.println("Нет такой комманды: " + cm[1]);
@@ -250,7 +264,7 @@ public class Colloquium
 		}
 		if(cm.length < 2 )
 		{
-			if(cm[0].toLowerCase().equals("exit") || cm[0].toLowerCase().equals("list") || cm[0].toLowerCase().equals("ls") || cm[0].toLowerCase().equals("quit") || cm[0].toLowerCase().equals("q"))
+			if(cm[0].toLowerCase().equals("exit") || cm[0].toLowerCase().equals("list") || cm[0].toLowerCase().equals("ls") || cm[0].toLowerCase().equals("quit") || cm[0].toLowerCase().equals("q") || cm[0].toLowerCase().equals("cls") || cm[0].toLowerCase().equals("clear"))
 			{
 				return true;
 			}
