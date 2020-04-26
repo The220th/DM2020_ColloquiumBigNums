@@ -590,6 +590,8 @@ public class BigPolinom
 		BigPolinom buffThis = this.clone();
         BigPolinom buffOther = other.clone();
 		BigPolinom result = buffOther;
+		BigQ zero = new BigQ("0/1");
+		BigQ minus = new BigQ("-1/1");
 		String resString;
 		if(buffThis.compareTo(buffOther) < 0)
 		{
@@ -605,34 +607,26 @@ public class BigPolinom
         }
 		resString = result.gcdAndLcm();
 		result = new BigPolinom( resString.substring(resString.indexOf("("), resString.length()) );
+		if(result.factors.get( result.factors.size()-1 ).compareTo(zero) < 0)
+		{
+			for(int i = 0; i < result.factors.size(); i++)
+				result.factors.set(i, result.factors.get(i).multiply(minus));
+		}
 		return result;
 	}
 	
 	/**
-    * Метод перевода кратных корней в простые
+    * Метод перевода кратных корней в простые derivative
 	*
     * @version 1
     * @author 
     */
 	public BigPolinom rootsToSimple()
 	{
-		BigPolinom result = new BigPolinom();
-		BigQ zero = new BigQ("0/1");
-		int minPower = this.factors.size(), n;
-		for(n = 0; n < minPower; n++)
-		{
-			if(!this.factors.get(n).isZero())
-				minPower = n;
-		}
-		if(minPower > 1)
-		{
-			for(n = 0; n < this.factors.size()-minPower+1; n++)
-				result.factors.add(zero);
-			for(n = minPower; n < this.factors.size(); n++)
-				result.factors.set(n-minPower+1, this.factors.get(n));
-		}
-		else
-			result = this.clone();
+		BigPolinom result;
+		BigPolinom buffD = this.derivative();
+		BigPolinom buffG = this.gcd(buffD);
+		result = this.divide(buffG);
 		return result;
 	}
 }
