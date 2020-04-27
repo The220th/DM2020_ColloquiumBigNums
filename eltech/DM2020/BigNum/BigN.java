@@ -1,5 +1,6 @@
 package eltech.DM2020.BigNum;
 
+import java.math.BigInteger;
 import java.util.*;
 
 	/**
@@ -584,6 +585,80 @@ public class BigN
     {
 		return new BigPolinom(this.toBigQ());
     }
+
+	/**
+    * Возведение в степень с помощью алгоритма бинарного возведения в степень
+    *
+    * @param BigN other - число, в степень которого возводится исходное
+	*
+    * @return BigN result - результат возведения исходного в степень other
+    *
+    * @version 1
+    * @author
+    */
+	public BigN pow(BigN other) 
+	{
+        BigN TWO = new BigN("2");
+        BigN result = new BigN("1");
+        BigN base = this.clone();
+        BigN b = other.clone();
+        while( !b.isZero() )
+        {
+            if( b.isEven() == false)
+                result = result.multiply(base);
+            base = base.multiply(base);
+            b = b.divide(TWO);
+        }
+        return result;
+    }
+    
+	/**
+    * Возведение в степень по модулю с помощью алгоритма бинарного возведения в степень
+    *
+    * @param BigN other - число, в степень которого возводится исходное
+    * @param BigN p - модуль
+	*
+    * @return BigN result - результат возведения исходного в степень other по модулю p
+    *
+    * @version 1
+    * @author
+    */
+	public BigN modPow(BigN other, BigN p) 
+	{
+        BigN TWO = new BigN("2");
+        BigN result = new BigN("1");
+        BigN base = this.clone();
+        BigN b = other.clone();
+        while( !b.isZero() )
+        {
+            if( b.isEven() == false)
+            {
+                result = result.multiply(base);
+                result = result.mod(p);
+            }
+            base = base.multiply(base);
+            base = base.mod(p);
+            b = b.divide(TWO);
+        }
+        return result;
+    }
+    
+	/**
+    * Факториал
+	*
+    * @return BigN result - факториал числа
+    *
+    * @version 1
+    * @author
+    */
+	public BigN factorial() 
+	{
+        BigN result = new BigN("1");
+        BigN i;
+        for(i = new BigN("1"); i.compareTo(this) <= 0; i.increment())
+            result = result.multiply(i);
+        return result;
+	}
 
     /**
      * Вычисление первой цифры деления большего натурального на меньшее, домноженное на 10^k

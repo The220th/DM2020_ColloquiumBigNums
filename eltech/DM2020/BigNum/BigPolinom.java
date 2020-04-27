@@ -193,6 +193,32 @@ public class BigPolinom
 	}
 
 	/**
+    * Возведение в степень с помощью алгоритма бинарного возведения в степень
+    *
+    * @param BigN other - число, в степень которого возводится исходное
+	*
+    * @return BigPolinom result - результат возведения исходного в степень other
+    *
+    * @version 1
+    * @author
+    */
+	public BigPolinom pow(BigN other) 
+	{
+        BigN TWO = new BigN("2");
+        BigPolinom result = new BigPolinom("1");
+        BigPolinom base = this.clone();
+        BigN b = other.clone();
+        while( !b.isZero() )
+        {
+            if( b.isEven() == false)
+                result = result.multiply(base);
+            base = base.multiply(base);
+            b = b.divide(TWO);
+        }
+        return result;
+    }
+
+	/**
     * Конвертация в BigN
 	* Если BigPolinom степени больше нуля или знаменатель коэффициента при нулевой степени не равен единице, или коэффициент при нулевой степени отрицательный, то бросит исключение
     *

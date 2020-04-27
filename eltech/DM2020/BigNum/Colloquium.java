@@ -161,6 +161,24 @@ public class Colloquium
 						lcm(cm);
 						break;
 					}
+					case "^": {}
+					case "pow":
+					{
+						pow(cm);
+						break;
+					}
+					case "modpow":
+					{
+						modPow(cm);
+						break;
+					}
+					case "!": {}
+					case "fack": {}
+					case "factorial":
+					{
+						factorial(cm);
+						break;
+					}
 					case "multiplyby10x":
 					{
 						multiplyBy10x(cm);
@@ -286,6 +304,69 @@ public class Colloquium
 				return false;
 			}
 		}
+		if(cm[1].toLowerCase().equals("pow") || cm[1].toLowerCase().equals("^")) //a pow b to c
+		{
+			if(cm.length != 5)
+			{
+				System.out.println(SintaxisProblem);
+				return false;
+			}
+			if( !nums.containsKey(cm[0]) )
+			{
+				System.out.println(cm[0] + NotBigNumInDictProblem);
+				return false;
+			}
+			if( !nums.containsKey(cm[2]) )
+			{
+				System.out.println(cm[2] + NotBigNumInDictProblem);
+				return false;
+			}
+			if(nums.get(cm[2]).getClass() != BigN.class)
+			{
+				System.out.println(cm[1] + ": число " + cm[2] + " должно быть натуральным + {0}");
+				return false;
+			}
+			return true;
+		}
+		if(cm[1].toLowerCase().equals("modpow")) //a modPow b p to c
+		{
+			if(cm.length != 6)
+			{
+				System.out.println(SintaxisProblem);
+				return false;
+			}
+			if( !nums.containsKey(cm[0]) )
+			{
+				System.out.println(cm[0] + NotBigNumInDictProblem);
+				return false;
+			}
+			if( !nums.containsKey(cm[2]) )
+			{
+				System.out.println(cm[2] + NotBigNumInDictProblem);
+				return false;
+			}
+			if( !nums.containsKey(cm[3]) )
+			{
+				System.out.println(cm[3] + NotBigNumInDictProblem);
+				return false;
+			}
+			if(nums.get(cm[0]).getClass() != BigN.class)
+			{
+				System.out.println(cm[1] + ": число " + cm[0] + " должно быть натуральным + {0}");
+				return false;
+			}
+			if(nums.get(cm[2]).getClass() != BigN.class)
+			{
+				System.out.println(cm[1] + ": число " + cm[2] + " должно быть натуральным + {0}");
+				return false;
+			}
+			if(nums.get(cm[3]).getClass() != BigN.class)
+			{
+				System.out.println(cm[1] + ": число " + cm[3] + " должно быть натуральным + {0}");
+				return false;
+			}
+			return true;
+		}
 		if(!nums.containsKey(cm[0]))
 		{
 			System.out.println(cm[0] + NotBigNumInDictProblem);
@@ -383,18 +464,15 @@ public class Colloquium
 				return false;
 			}
 		}
-
-		
 		return result;
 	}
 
 	private static String[] format(String[] cm)
 	{
-		String buffS;
 		String[] result;
 		if(cm.length == 1)
 			result = cm;
-		else if(cm[1].toLowerCase().equals("abs") || cm[1].toLowerCase().equals("getcoefathighestdegree") || cm[1].toLowerCase().equals("derivative") || cm[1].toLowerCase().equals("rootstosimple")) // a abs to c ---> a abs a to c
+		else if(cm[1].toLowerCase().equals("abs") || cm[1].toLowerCase().equals("getcoefathighestdegree") || cm[1].toLowerCase().equals("derivative") || cm[1].toLowerCase().equals("rootstosimple")|| cm[1].toLowerCase().equals("factorial") || cm[1].toLowerCase().equals("fack") || cm[1].toLowerCase().equals("!")) // a abs to c ---> a abs a to c
 		{
 			if(cm.length != 4)
 			{
@@ -532,6 +610,27 @@ public class Colloquium
 				nums.put(cm[4], ( ( BigPolinom )nums.get(cm[0])).mod( (BigPolinom)nums.get(cm[2]) ) ) ;
 			else
 				System.out.println("Error 404 in mod: Failed successfully...");
+		}
+		catch (Throwable t)
+		{
+			System.out.println(t);
+		}
+	}
+
+	private static void pow(String[] cm) // a pow b to c
+	{
+		try 
+		{
+			if(nums.get(cm[0]).getClass() == BigZ.class)
+				nums.put(cm[4], ( ( BigZ )nums.get(cm[0])).pow( (BigN)nums.get(cm[2]) ) ) ;
+			else if (nums.get(cm[0]).getClass() == BigN.class)
+				nums.put(cm[4], ( ( BigN )nums.get(cm[0])).pow( (BigN)nums.get(cm[2]) ) ) ;
+			else if(nums.get(cm[0]).getClass() == BigQ.class)
+				nums.put(cm[4], ( ( BigQ )nums.get(cm[0])).pow( (BigN)nums.get(cm[2]) ) ) ;
+			else if(nums.get(cm[0]).getClass() == BigPolinom.class)
+				nums.put(cm[4], ( ( BigPolinom )nums.get(cm[0])).pow( (BigN)nums.get(cm[2]) ) ) ;
+			else
+				System.out.println("Error 404 in pow: Failed successfully...");
 		}
 		catch (Throwable t)
 		{
@@ -753,6 +852,21 @@ public class Colloquium
 			System.out.println(t);
 		}
 	}
+
+	private static void factorial(String[] cm) // a factorial a to c
+	{
+		try 
+		{
+			if(nums.get(cm[0]).getClass() == BigN.class)
+				nums.put(cm[4], ( ( BigN )nums.get(cm[0])).factorial() ) ;
+			else
+				System.out.println(cm[1] + " только для натуральных + {0}");
+		}
+		catch (Throwable t)
+		{
+			System.out.println(t);
+		}
+	}
 	
 	private static void rootsToSimple(String[] cm) // a rootsToSimple a to c
 	{
@@ -858,6 +972,21 @@ public class Colloquium
 				nums.put(cm[5], ( ( BigN )nums.get(cm[0])).subtructByK( (BigN)nums.get(cm[2]), (BigN)nums.get(cm[3]) ) ) ;
 			else
 				System.out.println("Error 404 in subtructByK: Failed successfully...");
+		}
+		catch (Throwable t)
+		{
+			System.out.println(t);
+		}
+	}
+
+	private static void modPow(String[] cm) //a modPow b p to c
+	{
+		try 
+		{
+			if (nums.get(cm[0]).getClass() == BigN.class)
+				nums.put(cm[5], ( ( BigN )nums.get(cm[0])).modPow( (BigN)nums.get(cm[2]), (BigN)nums.get(cm[3]) ) ) ;
+			else
+				System.out.println("Error 404 in modPow: Failed successfully...");
 		}
 		catch (Throwable t)
 		{

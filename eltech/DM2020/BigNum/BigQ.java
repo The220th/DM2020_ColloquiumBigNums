@@ -194,6 +194,32 @@ public class BigQ
     public BigQ abs()
     {
 		return new BigQ( this.p.abs(), this.q.abs() );
+	}
+	
+	/**
+    * Возведение в степень с помощью алгоритма бинарного возведения в степень
+    *
+    * @param BigN other - число, в степень которого возводится исходное
+	*
+    * @return BigQ result - результат возведения исходного в степень other
+    *
+    * @version 1
+    * @author
+    */
+	public BigQ pow(BigN other) 
+	{
+        BigN TWO = new BigN("2");
+        BigQ result = new BigQ("1");
+        BigQ base = this.clone();
+        BigN b = other.clone();
+        while( !b.isZero() )
+        {
+            if( b.isEven() == false)
+                result = result.multiply(base);
+            base = base.multiply(base);
+            b = b.divide(TWO);
+        }
+        return result;
     }
 	
 	/**

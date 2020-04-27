@@ -298,6 +298,32 @@ public class BigZ
 	}
 
 	/**
+    * Возведение в степень с помощью алгоритма бинарного возведения в степень
+    *
+    * @param BigN other - число, в степень которого возводится исходное
+	*
+    * @return BigZ result - результат возведения исходного в степень other
+    *
+    * @version 1
+    * @author
+    */
+	public BigZ pow(BigN other) 
+	{
+        BigN TWO = new BigN("2");
+        BigZ result = new BigZ("1");
+        BigZ base = this.clone();
+        BigN b = other.clone();
+        while( !b.isZero() )
+        {
+            if( b.isEven() == false)
+                result = result.multiply(base);
+            base = base.multiply(base);
+            b = b.divide(TWO);
+        }
+        return result;
+    }
+
+	/**
     * Конвертация в BigN
 	* Если BigZ отрицательное, то бросает исключение
     *
